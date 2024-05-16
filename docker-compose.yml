@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  express-app:
+    build:
+      context: ./open-weather-consumer
+      dockerfile: docker/dockerfile  # Path to your Express app Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  quarkus-app:
+    build:
+      context: ./openweather
+      dockerfile: src/main/docker/Dockerfile.jvm  # Path to your Quarkus app Dockerfile
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
